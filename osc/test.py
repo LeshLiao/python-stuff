@@ -19,21 +19,17 @@ def set_filter(address: str, *args: List[Any]) -> None:
     print(f"Setting filter {filterno} values: {value1}, {value2}")
 
 def brightness_filter(address: str, *args: List[Any]) -> None:
-    pad = args[0]
-    particle = args[1]
-    value = args[2]
-    print(f"Setting filter {address} values: {pad}, {particle}, {value}")
+    value = args[0]
+    print(f"Setting filter {address} values: {value}")
 
 def colortemp_filter(address: str, *args: List[Any]) -> None:
-    pad = args[0]
-    particle = args[1]
-    value = args[2]
-    print(f"Setting filter {address} values: {pad}, {particle}, {value}")
+    value = args[0]
+    print(f"Setting filter {address} values: {value}")
 
 
 dispatcher.map("/filter*", set_filter)  # Map wildcard address to set_filter function
-dispatcher.map("/brightness", brightness_filter)  # Map wildcard address to set_filter function
-dispatcher.map("/colortemp", colortemp_filter)  # Map wildcard address to set_filter function
+dispatcher.map("/0/65/brightness", brightness_filter)  # Map wildcard address to set_filter function
+dispatcher.map("/0/65/colortemp", colortemp_filter)  # Map wildcard address to set_filter function
 
 
 # Set up server and client for testing
@@ -51,8 +47,8 @@ server.handle_request()
 client.send_message("/filter8", [6., -2.])
 server.handle_request()
 '''
-client.send_message("/brightness", [0, 65, 100])
+client.send_message("/0/65/brightness", [100])
 server.handle_request()
 
-client.send_message("/colortemp", [0, 66, 200])
+client.send_message("/0/65/colortemp", [200])
 server.handle_request()

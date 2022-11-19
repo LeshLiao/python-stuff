@@ -6,7 +6,7 @@ from pythonosc import udp_client
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
-  parser.add_argument("--ip", default="127.0.0.1",
+  parser.add_argument("--ip", default="172.20.10.4",
       help="The ip of the OSC server")
   parser.add_argument("--port", type=int, default=5005,
       help="The port the OSC server is listening on")
@@ -21,5 +21,5 @@ if __name__ == "__main__":
     #client.send_message("/0/65/brightness", "100")
     #client.send_message("/0/65/colortemperature", "200")
 
-    client.send_message("/volumeup", "123")
+    client.send_message("/0/65/brightness", "123")
     time.sleep(1)
