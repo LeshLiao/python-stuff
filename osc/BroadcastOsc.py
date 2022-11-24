@@ -2,19 +2,14 @@ import argparse
 import random
 import time
 import threading
-
 import json
 import socket
+
 from datetime import datetime
-
-
 from pythonosc import udp_client
 
 class BroadcastOsc:
     def __init__(self):
-        self.ip = "192.168.1.179"
-        self.port = 2346
-        self.client = udp_client.SimpleUDPClient(self.ip, self.port)
         self.t1 = threading.Thread(target=self.start)
         self.is_running = True
         self.brightness = 0
@@ -25,6 +20,7 @@ class BroadcastOsc:
 
         self.hashTable = {}
         self.clientList = []
+        self.lastStrList = []
 
         self.initHaspMap()
         self.ReadJsonFile()
@@ -41,26 +37,23 @@ class BroadcastOsc:
         print("BroadcastOsc start()")
         while self.is_running:
             #print("thread is_running = True")
-            #for x in range(24):
-            #    tempstr += str(self.brightness) + ","
             stationIndex = 0
             for station in self.stations_array:
                 rules_array = station['Rules']
                 tempstr = ""
                 for rule in rules_array:
-                    #key = str(rule['PadNo']) + "," + str(rule['Input'])
-                    #print("key="+key)
                     tempstr +=  self.hashTable[str(rule['PadNo']) + "," + str(rule['Input'])]
 
-                #self.client.send_message("/MatrixVelocity", tempstr)
-                myClient = self.clientList[stationIndex]
-                myClient.send_message("/MatrixVelocity", tempstr)
-                #print(station['IP']+":"+str(station['Port'])+ " color:" + tempstr)
+                if tempstr != self.lastStrList[stationIndex]:
+                    self.clientList[stationIndex].send_message("/MatrixVelocity", tempstr)
+                    self.lastStrList[stationIndex] = tempstr
+                    print(station['IP']+":"+str(station['Port'])+ " color:" + tempstr)
+                
                 stationIndex = stationIndex + 1
 
             #print(self.hashTable)
-            time.sleep(0.02)
-            print(datetime.now())
+            #print(datetime.now())
+            time.sleep(1)
 
     def setBrightness(self, pad: str, particle: str, value: int):
         self.brightness = value
@@ -75,11 +68,9 @@ class BroadcastOsc:
         for index in range(150):
             self.hashTable[str(0)+ "," + str(index)] = "0,0,0,"
 
-        index = 0
         for station in self.stations_array:
-            #self.clientList[index] = udp_client.SimpleUDPClient(station['IP'], station['Port'])
             self.clientList.append(udp_client.SimpleUDPClient(station['IP'], station['Port']) )
-            index = index + 1
+            self.lastStrList.append("")
             print(station['IP']+":"+str(station['Port']))
 
     def ReadJsonFile(self):
@@ -92,7 +83,6 @@ class BroadcastOsc:
         
         json_array = json_Data['MyStations']
         CurrentRuleList = []
-        #LeshLib.JsonTimestamp = json_Data['Timestamp']
         MatchDeviceIP = False
         
         for item in json_array:
