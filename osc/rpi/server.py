@@ -19,6 +19,12 @@ def colortemp_filter(address: str, *args: List[Any]) -> None:
     num = address.split('/')
     print(f"Setting filter {address} values: {str(value)} pad: {num[1]} particle: {num[2]} ")
 
+def lightxy_filter(address: str, *args: List[Any]) -> None:
+    #value = int(args[0])
+    num = address.split('/')
+    #print(f"Setting filter {address} values: {str(value)} pad: {num[1]} particle: {num[2]} ")
+    bb.setLightXY(num[1],num[2],args[0],args[1])
+
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
   parser.add_argument("--ip",
@@ -30,6 +36,7 @@ if __name__ == "__main__":
   dispatcher = Dispatcher()
   dispatcher.map("/*/*/brightness", brightness_filter)
   dispatcher.map("/*/*/colortemp", colortemp_filter)
+  dispatcher.map("/*/*/lightxy", lightxy_filter)
 
   bb = BroadcastOsc()
   bb.run()

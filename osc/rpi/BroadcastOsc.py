@@ -45,6 +45,7 @@ class BroadcastOsc:
                     tempstr +=  self.hashTable[str(rule['PadNo']) + "," + str(rule['Input'])]
 
                 if tempstr != self.lastStrList[stationIndex]:
+                    ########### TODO
                     self.clientList[stationIndex].send_message("/MatrixVelocity", tempstr)
                     self.lastStrList[stationIndex] = tempstr
                     print(station['IP']+":"+str(station['Port'])+ " color:" + tempstr)
@@ -53,12 +54,26 @@ class BroadcastOsc:
 
             #print(self.hashTable)
             #print(datetime.now())
-            time.sleep(1)
+            time.sleep(0.03)
 
     def setBrightness(self, pad: str, particle: str, value: int):
         self.brightness = value
         color = str(value) + "," + str(value) + "," + str(value) + ","
         self.hashTable[pad+","+particle] = color
+
+    def setLightXY(self, pad: str, particle: str, valueX: float, valueY: float):
+        #color = str(value) + "," + str(value) + "," + str(value) + ","
+        self.hashTable[pad+","+particle] = self.calculateLightColor(valueX,valueY)
+        #print("valueX="+str(valueX)+",valueY="+str(valueY))
+
+    def calculateLightColor(self, valueTemp: float, valueBrightness: float):
+        r = 255
+        g = 255 - (130 * valueTemp)
+        b = 255 - (255 * valueTemp)
+        r = int(r * valueBrightness)
+        g = int(g * valueBrightness)
+        b = int(b * valueBrightness)
+        return str(r) + "," + str(g) + "," + str(b) + ","
 
     def initHaspMap(self):
         for index in range(65,71):
