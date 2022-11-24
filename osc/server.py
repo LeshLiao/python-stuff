@@ -1,20 +1,23 @@
 import argparse
 import math
 import os
+import sys
 
+from BroadcastOsc import BroadcastOsc
 from pythonosc.dispatcher import Dispatcher
 from pythonosc import osc_server
 from typing import List, Any
 
 def brightness_filter(address: str, *args: List[Any]) -> None:
-    value = args[0]
+    value = int(args[0])
     num = address.split('/')
-    print(f"Setting filter {address} values: {value} pad: {num[1]} particle: {num[2]} ")
-
+    print(f"Setting filter {address} values: {str(value)} pad: {num[1]} particle: {num[2]} ")
+    bb.setBrightness(num[1],num[2],value)
+    
 def colortemp_filter(address: str, *args: List[Any]) -> None:
-    value = args[0]
+    value = int(args[0])
     num = address.split('/')
-    print(f"Setting filter {address} values: {value} pad: {num[1]} particle: {num[2]} ")
+    print(f"Setting filter {address} values: {str(value)} pad: {num[1]} particle: {num[2]} ")
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
@@ -28,7 +31,18 @@ if __name__ == "__main__":
   dispatcher.map("/*/*/brightness", brightness_filter)
   dispatcher.map("/*/*/colortemp", colortemp_filter)
 
+  bb = BroadcastOsc()
+  bb.run()
+  
   server = osc_server.ThreadingOSCUDPServer(
       (args.ip, args.port), dispatcher)
   print("Serving on {}".format(server.server_address))
-  server.serve_forever()
+  
+  try:
+    server.serve_forever()
+  except:
+    print("exception:", sys.exc_info()[0], "occurred.")
+    bb.stop()
+
+
+  

@@ -21,5 +21,5 @@ if __name__ == "__main__":
     #client.send_message("/0/65/brightness", "100")
     #client.send_message("/0/65/colortemperature", "200")
 
-    client.send_message("/0/65/brightness", "123")
+    client.send_message("/0/65/brightness", "22")
     time.sleep(1)
