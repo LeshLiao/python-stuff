@@ -31,6 +31,9 @@ if __name__ == "__main__":
       default="0.0.0.0", help="The ip to listen on")
   parser.add_argument("--port",
       type=int, default=5005, help="The port to listen on")
+  parser.add_argument("--config",
+      default="config/StationSetup.json", help="The config to load")
+
   args = parser.parse_args()
 
   dispatcher = Dispatcher()
@@ -38,7 +41,7 @@ if __name__ == "__main__":
   dispatcher.map("/*/*/colortemp", colortemp_filter)
   dispatcher.map("/*/*/lightxy", lightxy_filter)
 
-  bb = BroadcastOsc()
+  bb = BroadcastOsc(args.config)
   bb.run()
   
   server = osc_server.ThreadingOSCUDPServer(

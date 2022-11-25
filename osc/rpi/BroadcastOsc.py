@@ -9,12 +9,12 @@ from datetime import datetime
 from pythonosc import udp_client
 
 class BroadcastOsc:
-    def __init__(self):
+    def __init__(self, config:str):
         self.t1 = threading.Thread(target=self.start)
         self.is_running = True
         self.brightness = 0
 
-        input_file = open ('config/StationSetup.json')
+        input_file = open (config)
         json_Data = json.load(input_file)
         self.stations_array = json_Data['MyStations']
 
