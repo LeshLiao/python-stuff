@@ -13,8 +13,9 @@ class BroadcastOsc:
         self.t1 = threading.Thread(target=self.start)
         self.is_running = True
         self.brightness = 0
+        self.config = config
 
-        input_file = open (config)
+        input_file = open (self.config)
         json_Data = json.load(input_file)
         self.stations_array = json_Data['MyStations']
 
@@ -89,7 +90,7 @@ class BroadcastOsc:
             print(station['IP']+":"+str(station['Port']))
 
     def ReadJsonFile(self):
-        input_file = open ('config/StationSetup.json')
+        input_file = open (self.config)
         json_Data = json.load(input_file)
         
         print("[ StationSetup.json ]")
