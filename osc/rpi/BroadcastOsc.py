@@ -11,6 +11,7 @@ from pythonosc import udp_client
 class BroadcastOsc:
     def __init__(self, config:str):
         self.t1 = threading.Thread(target=self.start)
+
         self.is_running = True
         self.brightness = 0
         self.config = config
@@ -36,9 +37,12 @@ class BroadcastOsc:
 
     def start(self):
         print("BroadcastOsc start()")
+        loopIndex = 0
+
         while self.is_running:
             #print("thread is_running = True")
             stationIndex = 0
+            loopIndex += 1
             for station in self.stations_array:
                 rules_array = station['Rules']
                 tempstr = ""
@@ -46,11 +50,15 @@ class BroadcastOsc:
                     tempstr +=  self.hashTable[str(rule['PadNo']) + "," + str(rule['Input'])]
 
                 if tempstr != self.lastStrList[stationIndex]:
-                    ########### TODO
                     self.clientList[stationIndex].send_message("/MatrixVelocity", tempstr)
                     self.lastStrList[stationIndex] = tempstr
-                    print(station['IP']+":"+str(station['Port'])+ " color:" + tempstr)
-                
+                    print("Send data to " + station['IP']+":"+str(station['Port'])+ " color:" + tempstr)
+
+                #resend data in every 100 times.
+                if loopIndex > 200:
+                    self.lastStrList[stationIndex] = ""
+                    loopIndex = 0
+
                 stationIndex = stationIndex + 1
 
             #print(self.hashTable)
