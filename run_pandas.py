@@ -3,62 +3,63 @@ import pandas as pd
 import glob
 import time
 
-# in the folder
-path = os.getcwd() + "\orders"
-print(path)
-files = glob.glob(os.path.join(path, "*.xlsx"))
+# 訂單索引值名稱
+indexColumnName = "甘仔店料號"
 
-# create an Empty DataFrame object
-all_orders = pd.DataFrame()      
-  
-# loop over the list of csv files
-for f in files:
-    # print the location and filename
-    print('Location:', f)
-    print('File Name:', f.split("\\")[-1])
-    one_order = pd.read_excel(f)
-    all_orders = pd.concat([all_orders,one_order]) 
+# 對照表檔名
+tableExcelName = "出貨料號對照.xlsx"
 
-print("all_orders===================================================")
-all_orders = all_orders.reset_index()
-all_orders.drop('index', inplace=True, axis=1)
-print(all_orders)
+# 訂單資料夾名稱
+orderFolderName = "orders"
 
-mappingTable = pd.read_excel("出貨料號對照.xlsx")
-
-print("===================================================")
-
-# create an Empty DataFrame object
-df = pd.DataFrame()
-
-
-for index, row in all_orders.iterrows():
-    #print(row['甘仔店料號'])
-    newDf = mappingTable.loc[mappingTable['甘仔店料號'] == row['甘仔店料號']]
-
-    df = pd.concat([df,newDf])  
+def combine_all_order():
+    path = os.getcwd() + "\\" + orderFolderName
+    files = glob.glob(os.path.join(path, "*.xlsx"))
     
+    # create an Empty DataFrame object
+    dataFrame = pd.DataFrame()  
 
+    # loop over the list of excel files
+    for f in files:
+        print('Read excel:', f)
+        one_order = pd.read_excel(f)
+        dataFrame = pd.concat([dataFrame, one_order]) 
 
-print("===================================================")
-df = df.reset_index()
-print(df)
-print("===================================================")
+    dataFrame = dataFrame.reset_index()
+    dataFrame.drop('index', inplace=True, axis=1)
+    return dataFrame
 
+def getMappingDataFrame(allOrders, columnName):
+    # create an Empty DataFrame object
+    df = pd.DataFrame()
+    for index, row in allOrders.iterrows():
+        rowData = tableExcel.loc[tableExcel[columnName] == row[columnName]]
+        df = pd.concat([df,rowData])  
 
+    df = df.reset_index()
+    df.drop('index', inplace=True, axis=1)
+    return df
 
-#df.drop('甘仔店料號', inplace=True, axis=1)
-df.drop('index', inplace=True, axis=1)
+def exportExcel(dataFrame):
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    outputName = "output_" + timestr +".xlsx"
+    dataFrame.to_excel(outputName)
+    print("output:" + os.getcwd() + "\\" + outputName)
 
-print(df)
-print("===================================================")
-all_orders = all_orders.join(df, lsuffix="", rsuffix="_new")
+# 結合所有訂單
+all_orders = combine_all_order()
+
+# 讀取對照表
+tableExcel = pd.read_excel(tableExcelName)
+
+# 進行比對並產生結果
+result = getMappingDataFrame(all_orders, indexColumnName)
+
+# 將結果合併到"所有訂單"
+all_orders = all_orders.join(result, lsuffix="", rsuffix="_new")
+
+# 例出合併後的內容
 print(all_orders)
 
-print("===================================================")
-
-
-timestr = time.strftime("%Y%m%d-%H%M%S")
-outputName = "output_" + timestr +".xlsx"
-all_orders.to_excel(outputName)
-print("output:" + os.getcwd() + "\\" + outputName)
+# 匯出Excel檔案
+exportExcel(all_orders)
