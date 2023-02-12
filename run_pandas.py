@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import glob
 import time
+import numpy as np
 
 # 訂單索引值名稱
 indexColumnName = "甘仔店料號"
@@ -22,6 +23,11 @@ def combine_all_order():
     # loop over the list of excel files
     for f in files:
         print('Read excel:', f)
+        fileName = f.split("\\")[-1]
+        if fileName.startswith('~'):
+            print('skip:'+fileName)
+            continue
+        print('File Name:', fileName)
         one_order = pd.read_excel(f)
         dataFrame = pd.concat([dataFrame, one_order]) 
 
@@ -33,9 +39,16 @@ def getMappingDataFrame(allOrders, columnName):
     # create an Empty DataFrame object
     df = pd.DataFrame()
     for index, row in allOrders.iterrows():
-        rowData = tableExcel.loc[tableExcel[columnName] == row[columnName]]
+        test = tableExcel[columnName] == row[columnName]
+        rowData = tableExcel.loc[test]
+        
+        if rowData.empty:
+            print("rowData.empty")
+            rowData = getEmptyDataFrame(tableExcel)
+
         df = pd.concat([df,rowData])  
 
+    print(df)
     df = df.reset_index()
     df.drop('index', inplace=True, axis=1)
     return df
@@ -43,8 +56,17 @@ def getMappingDataFrame(allOrders, columnName):
 def exportExcel(dataFrame):
     timestr = time.strftime("%Y%m%d-%H%M%S")
     outputName = "output_" + timestr +".xlsx"
-    dataFrame.to_excel(outputName)
+    dataFrame.to_excel(outputName, index=False)
     print("output:" + os.getcwd() + "\\" + outputName)
+    
+def getEmptyDataFrame(dataFrame):
+    emptyList = []
+    for i in range(len(dataFrame.columns)):
+        emptyList.append('')
+
+    seriesData = pd.Series(emptyList)
+    emptyDataFrame = pd.DataFrame([list(seriesData)],  columns = dataFrame.columns)
+    return emptyDataFrame
 
 # 結合所有訂單
 all_orders = combine_all_order()
