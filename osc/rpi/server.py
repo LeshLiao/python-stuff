@@ -7,7 +7,7 @@ from BroadcastOsc import BroadcastOsc
 from pythonosc.dispatcher import Dispatcher
 from pythonosc import osc_server
 from typing import List, Any
-
+'''
 def brightness_filter(address: str, *args: List[Any]) -> None:
     value = int(args[0])
     num = address.split('/')
@@ -18,7 +18,7 @@ def colortemp_filter(address: str, *args: List[Any]) -> None:
     value = int(args[0])
     num = address.split('/')
     print(f"Setting filter {address} values: {str(value)} pad: {num[1]} particle: {num[2]} ")
-
+'''
 def lightxy_filter(address: str, *args: List[Any]) -> None:
     #value = int(args[0])
     num = address.split('/')
@@ -37,8 +37,8 @@ if __name__ == "__main__":
   args = parser.parse_args()
 
   dispatcher = Dispatcher()
-  dispatcher.map("/*/*/brightness", brightness_filter)
-  dispatcher.map("/*/*/colortemp", colortemp_filter)
+  #dispatcher.map("/*/*/brightness", brightness_filter)
+  #dispatcher.map("/*/*/colortemp", colortemp_filter)
   dispatcher.map("/*/*/lightxy", lightxy_filter)
 
   bb = BroadcastOsc(args.config)

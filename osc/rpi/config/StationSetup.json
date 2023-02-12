@@ -23,7 +23,7 @@
     {
       "StationID": 0,
       "Name": "Led Matrix pad - Column3&4&DMX",
-      "IP": "192.168.1.101",
+      "IP": "0.0.0.0",
       "Port": 2346,
       "Titles":"Input:[Note,Tag],WS281X_Ch0 OutputParam:[Begin,End] Input:[Note,Tag],DMX OutputParam:[BeginChannel,MaxChannel,Dimmer,Red,Green,Blue]",
       "Devices":[
