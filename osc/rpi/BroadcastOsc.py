@@ -54,13 +54,15 @@ class BroadcastOsc:
                     self.lastStrList[stationIndex] = tempstr
                     print("Send data to " + station['IP']+":"+str(station['Port'])+ " color:" + tempstr)
 
-                #resend data in every 100 times.
-                if loopIndex > 200:
-                    self.lastStrList[stationIndex] = ""
-                    loopIndex = 0
-
                 stationIndex = stationIndex + 1
 
+            #resend data in every 100 times.
+            if loopIndex > 200:
+                stationIndex = 0
+                for station in self.stations_array:
+                    self.lastStrList[stationIndex] = ""
+                    stationIndex = stationIndex + 1
+                loopIndex = 0
             #print(self.hashTable)
             #print(datetime.now())
             time.sleep(0.03)
