@@ -1,2 +1,2 @@
-Python is a popular programming language.
-It was created by Guido van Rossum, and released in 1991.
+IDE: Visual Studio Code
+Version: Python 3.9.6
