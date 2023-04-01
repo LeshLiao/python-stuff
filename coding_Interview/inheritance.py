@@ -9,7 +9,7 @@ class Andy(Employee):
         super().__init__()
         self.get_gold = get_gold
 
-    def getDetials(self):
+    def get_details(self):
         print('==getDetals==')
         print('tree:', self.cut_tree)
         print('gold:', self.get_gold)
@@ -17,4 +17,4 @@ class Andy(Employee):
 
 if __name__ == "__main__":
     andy = Andy(1)
-    andy.getDetials()
+    andy.get_details()
