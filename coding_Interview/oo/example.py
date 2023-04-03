@@ -131,7 +131,7 @@ if __name__ == "__main__":
     # print('Get private value:' + str(car2.__my_private_variable)) # can not get private variable
 
     # using staticmethod
-    print('100 km/h = ' + str(Car.convert_kmh_to_mph(100)) + ' mph')
+    print('100 km/h = ' + str(round(Car.convert_kmh_to_mph(100), 2)) + ' mph')
 
     plane = Airplane()
     plane.move()
