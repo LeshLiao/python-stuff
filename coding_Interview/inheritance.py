@@ -10,7 +10,7 @@ class Andy(Employee):
         self.get_gold = get_gold
 
     def get_details(self):
-        print('==getDetals==')
+        print('==get Details==')
         print('tree:', self.cut_tree)
         print('gold:', self.get_gold)
 
