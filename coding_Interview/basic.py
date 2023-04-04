@@ -22,6 +22,8 @@ print(mix_list)
 
 print(str(mix_list[0]) + ', ' + mix_list[1] + ', ' + str(mix_list[2]))
 
+print(mix_list[0], ', ', mix_list[1], ', ', mix_list[2])
+
 print('{}, {}, {}'.format(mix_list[0], mix_list[1], mix_list[2]))
 
 print(f"{mix_list[0]}, {mix_list[1]}, {mix_list[2]}")

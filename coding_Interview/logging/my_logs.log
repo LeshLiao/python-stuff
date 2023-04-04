@@ -1,0 +1,6 @@
+DEBUG debug message [main.py]
+INFO info message [main.py]
+WARNING warning message [main.py]
+ERROR error message [main.py]
+CRITICAL critical message [main.py]
+DEBUG Thats so cool! [other_module.py]
