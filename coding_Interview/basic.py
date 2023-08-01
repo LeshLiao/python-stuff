@@ -1,29 +1,29 @@
+# print
+
+test_a = 123
+print('test_a=' + str(test_a))
+
+test_b = 'bbb'
+print('| test_a={} | test_b={} |'.format(test_a, test_b))
+
+
+# string
+string = "WhatIsThis"
+print(string)
+string_to_list = list(string)
+print(string_to_list)
+
+# List
 
 my_list = ['A', 'B', 'C']
-
 for i in range(len(my_list)):
     print(my_list[i])
 
 for item in my_list:
-    # print('index='+index)
     print('item='+item)
 
-for index, item in enumerate(my_list):
-    print('index={} ,item={}'.format(index, item))
+# function
 
-another_list = ['D', 'E', 'F']
 
-for item1, item2 in zip(my_list, another_list):
-    print('{} ,{}'.format(item1, item2))
-
-mix_list = [1, '2', True]
-
-print(mix_list)
-
-print(str(mix_list[0]) + ', ' + mix_list[1] + ', ' + str(mix_list[2]))
-
-print(mix_list[0], ', ', mix_list[1], ', ', mix_list[2])
-
-print('{}, {}, {}'.format(mix_list[0], mix_list[1], mix_list[2]))
-
-print(f"{mix_list[0]}, {mix_list[1]}, {mix_list[2]}")
+def function():
+    pass
