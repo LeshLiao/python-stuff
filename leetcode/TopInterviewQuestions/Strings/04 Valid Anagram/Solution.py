@@ -40,3 +40,8 @@ print("expect: True")
 ans = s.isAnagram("rat", "car")
 print("ans:"+str(ans))
 print("expect: False")
+
+'''
+Reference youtube:
+https://www.youtube.com/watch?v=9UtInBqnCgA&list=PLot-Xpze53lfQmTEztbgdp8ALEoydvnRQ&ab_channel=NeetCode
+'''
