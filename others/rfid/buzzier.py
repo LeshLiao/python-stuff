@@ -16,6 +16,13 @@ def one_sound(pin, s):
     time.sleep(s)
     GPIO.output(pin,GPIO.LOW)
 
+def four_sound(pin, s):
+    for i in range(4):
+        GPIO.output(pin,GPIO.HIGH)
+        time.sleep(s)
+        GPIO.output(pin,GPIO.LOW)
+        time.sleep(0.07)
+
 pin_number = 37
 
 # to use Raspberry Pi board pin numbers (1~40)
@@ -28,6 +35,8 @@ if __name__ == '__main__':
     try:
         #for i in range(0,50):
         #    blink(pin_number)
-        one_sound(pin_number, 0.1)
+
+        #one_sound(pin_number, 0.1)
+        four_sound(pin_number, 0.1)
     finally:
         GPIO.cleanup()
