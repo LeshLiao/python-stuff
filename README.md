@@ -3,7 +3,7 @@ Version: Python 3.9.6
 
 # Memo
 
-git stash --include-untracked
+git stash save "new_stash" --include-untracked
 git status
 git pull
 git stash list

@@ -56,32 +56,36 @@ class Solution:
 class TestSolution(unittest.TestCase):
     s = Solution()
 
-    def test_01(self):
-        head = ListNode(4)
-
-        first_node = ListNode(5)
-        head.next = first_node
-
-        second_node = ListNode(1)
-        first_node.next = second_node
-
-        third_node = ListNode(9)
-        second_node.next = third_node
-
-        test_node = ListNode(5)
-
+    @unittest.skip
+    def test_something(self):
+        list = [111, 2, 3]
+        head = self.list_to_linked_list(list)
         self.turn_to_list(head)
-        self.s.removeNthFromEnd(head, 1)
-        self.assertEqual(self.turn_to_list(head), [4, 5, 1])
 
-    def turn_to_list(self, head: ListNode) -> List:
-        node = head
+    # @unittest.skip
+    def test_01(self):
+        head = self.list_to_linked_list([4, 5, 1, 9])
+        self.s.removeNthFromEnd(head, 1)
+        self.assertEqual(self.linked_list_to_list(head), [4, 5, 1])
+
+    def linked_list_to_list(self, head: ListNode) -> List:
+        cur = head
         my_list = []
-        while (node != None):
-            my_list.append(node.val)
-            node = node.next
+        while (cur != None):
+            my_list.append(cur.val)
+            cur = cur.next
         print(my_list)
         return my_list
+
+    def list_to_linked_list(self, list: List) -> ListNode:
+        if len(list) == 0:
+            return None
+        head = ListNode(list[0])
+        cur = head
+        for item in list[1:]:
+            cur.next = ListNode(item)
+            cur = cur.next
+        return head
 
 
 if __name__ == '__main__':
