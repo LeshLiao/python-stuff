@@ -14,17 +14,25 @@ class ListNode:
 
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        dummy = cur = ListNode(0)
-        while list1 and list2:
+
+        ptr = ret_list = ListNode(0)
+
+        while list1 != None and list2 != None:
             if list1.val < list2.val:
-                cur.next = list1
+                ptr.next = list1
                 list1 = list1.next
+                ptr = ptr.next
             else:
-                cur.next = list2
+                ptr.next = list2
                 list2 = list2.next
-            cur = cur.next
-        cur.next = list1 or list2
-        return dummy.next
+                ptr = ptr.next
+
+        if list1 != None:
+            ptr.next = list1
+        if list2 != None:
+            ptr.next = list2
+
+        return ret_list.next
 
 
 class TestSolution(unittest.TestCase):
@@ -38,6 +46,22 @@ class TestSolution(unittest.TestCase):
         self.dump_linked_list(list2)
         self.assertEqual(self.linked_list_to_list(self.s.mergeTwoLists(
             list1, list2)), [1, 1, 2, 3, 4, 4])
+
+    def test_02(self):
+        list1 = self.list_to_linked_list([])
+        list2 = self.list_to_linked_list([])
+        self.dump_linked_list(list1)
+        self.dump_linked_list(list2)
+        self.assertEqual(self.linked_list_to_list(self.s.mergeTwoLists(
+            list1, list2)), [])
+
+    def test_03(self):
+        list1 = self.list_to_linked_list([])
+        list2 = self.list_to_linked_list([0])
+        self.dump_linked_list(list1)
+        self.dump_linked_list(list2)
+        self.assertEqual(self.linked_list_to_list(self.s.mergeTwoLists(
+            list1, list2)), [0])
 
     def linked_list_to_list(self, head: ListNode) -> List:
         cur = head
@@ -69,3 +93,21 @@ class TestSolution(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+'''
+# Other people solution:
+
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = cur = ListNode(0)
+        while list1 and list2:
+            if list1.val < list2.val:
+                cur.next = list1
+                list1 = list1.next
+            else:
+                cur.next = list2
+                list2 = list2.next
+            cur = cur.next
+        cur.next = list1 or list2
+        return dummy.next
+'''
