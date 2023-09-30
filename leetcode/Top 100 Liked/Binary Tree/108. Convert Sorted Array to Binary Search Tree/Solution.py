@@ -1,73 +1,48 @@
+import os
+import sys
 import unittest
-from typing import List
 from typing import Optional
+from typing import List
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+import binary_tree_module as bt
 
 
-# Definition for a binary tree node.
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
-        self.val = val
+        self.value = val
         self.left = left
         self.right = right
 
-    def insert(self, data):
-        if data < self.val:
-            if self.left == None:
-                self.left = TreeNode(data)
-            else:
-                self.left.insert(data)
-        else:
-            if self.right == None:
-                self.right = TreeNode(data)
-            else:
-                self.right.insert(data)
-
-    # function to print a BST
-    def PrintTree(self):
-        print(self.val)
-
-        if self.left:
-            self.left.PrintTree()
-
-        if self.right:
-            self.right.PrintTree()
-
-
 class Solution:
     def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
+        return self.create_balance_tree(nums, 0, len(nums)-1)
 
-        my_list = [1, 2, 3]
-        root = TreeNode(0)
-        for data in my_list:
-            self.addToTree(root, data)
+    def create_balance_tree(self,arr, left,right):
+        if left > right:
+            return None
+        center = (left + right) // 2
+        root = TreeNode(arr[center])
+        root.left = self.create_balance_tree(arr,left,center -1)
+        root.right = self.create_balance_tree(arr,center + 1,right)
+        return root
 
 
 class TestSolution(unittest.TestCase):
     s = Solution()
 
-    @unittest.skip
+    # @unittest.skip
     def test_01(self):
-        list = ll.list_to_linked_list([1, 2, 2, 1])
-        self.assertEqual(self.s.isPalindrome(list), True)
-
-    def test_private(self):
-
-        # Use the insert method to add nodes
-        root = TreeNode(12)
-        root.insert(6)
-        root.insert(14)
-        root.insert(3)
-
-        root.PrintTree()
-        self.assertEqual(True, True)
-
+        arr = [-10,-3,0,5,9]
+        result = self.s.sortedArrayToBST(arr)
+        root = bt.print_binary_tree(result)
+        new_arr = bt.bfsTraversalToArray(result)
+        # self.assertEqual(new_arr, [0,-10,5,None,-3,None,9])
+        self.assertEqual(new_arr, [0,-10,5,-3,9])
 
 '''
-        12
-    6       14
-3
-
-12 6 14 3
+Input: nums = [-10,-3,0,5,9]
+Output: [0,-3,9,-10,null,5]
+Explanation: [0,-10,5,null,-3,null,9] is also accepted:
 '''
 
 

@@ -13,3 +13,6 @@
 - git commit -am "My message"
 - git log
 - git push
+
+- ssh -T git@github.com
+- ssh-add ~/.ssh/rpi-key
