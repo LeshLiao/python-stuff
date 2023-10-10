@@ -6,10 +6,9 @@ from typing import List
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import binary_tree_module as bt
 
-
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
-        self.value = val
+        self.val = val
         self.left = left
         self.right = right
 
@@ -28,7 +27,7 @@ class Solution:
             if current > self.max_val:
                 self.max_val = current
             self.printNode(root.left,current)
-            print(root.value)
+            print(root.val)
             self.printNode(root.right,current)
 
 class TestSolution(unittest.TestCase):

@@ -9,7 +9,7 @@ import binary_tree_module as bt
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
-        self.value = val
+        self.val = val
         self.left = left
         self.right = right
 

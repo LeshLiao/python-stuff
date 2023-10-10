@@ -1,10 +1,11 @@
 from typing import Optional
 
 class TreeNode:
-    def __init__(self, value):
-        self.value = value
+    def __init__(self, val):
+        self.val = val
         self.left = None
         self.right = None
+    
     
 def create_binary_tree(arr, index):
 
@@ -23,14 +24,14 @@ def print_binary_tree(root, prefix="", is_left=True):
     if root.right:
         print_binary_tree(root.right, prefix + ("│   " if is_left else "    "), False)
 
-    print(prefix + ("└── " if is_left else "┌── ") + str(root.value))
+    print(prefix + ("└── " if is_left else "┌── ") + str(root.val))
 
     if root.left:
         print_binary_tree(root.left, prefix + ("    " if is_left else "│   "), True)
 
 def printNode_pre_order(root):
     if root:
-        print(root.value)
+        print(root.val)
         printNode_pre_order(root.left)
         printNode_pre_order(root.right)
 
@@ -38,7 +39,7 @@ def insert(root, val):
     if root is None:
         return TreeNode(val)
     else:
-        if root.value > val:
+        if root.val > val:
             root.left = insert(root.left, val)
         else:
             root.right = insert(root.right, val)
@@ -52,8 +53,8 @@ def in_order_traversal_to_arr(root: Optional[TreeNode]):
 
 def in_order(root,my_list):
     if root:
-        if root.value:
-            my_list.append(root.value)
+        if root.val:
+            my_list.append(root.val)
         in_order(root.left,my_list)
         in_order(root.right,my_list)
 
@@ -66,7 +67,7 @@ def bfsTraversalToArray(root):
 
     while queue:
         node = queue.pop(0)
-        result.append(node.value)
+        result.append(node.val)
 
         if node.left:
             queue.append(node.left)
