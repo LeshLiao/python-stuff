@@ -14,22 +14,28 @@ class TreeNode:
         self.right = right
 
 class Solution:
-    def __init__(self):
-        self.in_order_list = []
 
-    def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        self.in_order(root)
-        for i in range(1,len(self.in_order_list)):
-            if self.in_order_list[i-1] >= self.in_order_list[i]:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        if root and root.left == None and root.right == None:
+            return True
+
+        return self.isMirror(root.left, root.right)
+
+    def isMirror(self, left, right):
+
+        # 1. Both empty
+        if left is None and right is None:
+            return True
+
+        # 2. Both non-empty -> Compare them
+        if left is not None and right is not None:
+            if left.val != right.val:
                 return False
-        return True
+            return self.isMirror(left.left, right.right) and \
+                   self.isMirror(left.right, right.left)
 
-    def in_order(self, root):
-        if root:
-            self.in_order(root.left)
-            if root.val != None:
-                self.in_order_list.append(root.val)
-            self.in_order(root.right)
+        # 3. one empty, one not -- false
+        return False
 
 
 class TestSolution(unittest.TestCase):
@@ -37,26 +43,25 @@ class TestSolution(unittest.TestCase):
     def setUp(self):
         self.s = Solution()
 
-    # @unittest.skip
     def test_01(self):
-        arr = [2,1,3]
+        arr = [1,2,2,3,4,4,3]
         root = bt.create_binary_tree(arr, 0)
         bt.print_binary_tree(root)
-        result = self.s.isValidBST(root)
+        result = self.s.isSymmetric(root)
         self.assertEqual(result, True)
 
     def test_02(self):
-        arr = [5,1,4,None,None,3,6]
+        arr = [1,2,2,None,3,None,3]
         root = bt.create_binary_tree(arr, 0)
         bt.print_binary_tree(root)
-        result = self.s.isValidBST(root)
+        result = self.s.isSymmetric(root)
         self.assertEqual(result, False)
 
     def test_03(self):
-        arr = [0,None,-1]
+        arr = [1,2,2,2,None,2]
         root = bt.create_binary_tree(arr, 0)
         bt.print_binary_tree(root)
-        result = self.s.isValidBST(root)
+        result = self.s.isSymmetric(root)
         self.assertEqual(result, False)
 
 if __name__ == '__main__':
