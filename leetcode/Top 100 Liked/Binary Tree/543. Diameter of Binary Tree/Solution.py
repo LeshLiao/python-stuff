@@ -28,7 +28,7 @@ class Solution:
                 self.diameter = left_depth + right_depth
             return 1 + max(left_depth, right_depth)
         else:
-            return 0 
+            return 0
 
 class TestSolution(unittest.TestCase):
 
@@ -38,14 +38,14 @@ class TestSolution(unittest.TestCase):
     # @unittest.skip
     def test_01(self):
         arr = [1,2,3,4,5]
-        root = bt.create_binary_tree(arr, 0)
+        root = bt.array_to_binary_tree(arr)
         bt.print_binary_tree(root)
         result = self.s.diameterOfBinaryTree(root)
         self.assertEqual(result, 3)
 
     def test_02(self):
         arr = [1,2]
-        root = bt.create_binary_tree(arr, 0)
+        root = bt.array_to_binary_tree(arr)
         bt.print_binary_tree(root)
         result = self.s.diameterOfBinaryTree(root)
         self.assertEqual(result, 1)

@@ -40,21 +40,21 @@ class TestSolution(unittest.TestCase):
     # @unittest.skip
     def test_01(self):
         arr = [2,1,3]
-        root = bt.create_binary_tree(arr, 0)
+        root = bt.array_to_binary_tree(arr)
         bt.print_binary_tree(root)
         result = self.s.isValidBST(root)
         self.assertEqual(result, True)
 
     def test_02(self):
         arr = [5,1,4,None,None,3,6]
-        root = bt.create_binary_tree(arr, 0)
+        root = bt.array_to_binary_tree(arr)
         bt.print_binary_tree(root)
         result = self.s.isValidBST(root)
         self.assertEqual(result, False)
 
     def test_03(self):
         arr = [0,None,-1]
-        root = bt.create_binary_tree(arr, 0)
+        root = bt.array_to_binary_tree(arr)
         bt.print_binary_tree(root)
         result = self.s.isValidBST(root)
         self.assertEqual(result, False)

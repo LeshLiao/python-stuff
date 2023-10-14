@@ -45,21 +45,21 @@ class TestSolution(unittest.TestCase):
 
     def test_01(self):
         arr = [1,2,2,3,4,4,3]
-        root = bt.create_binary_tree(arr, 0)
+        root = bt.array_to_binary_tree(arr)
         bt.print_binary_tree(root)
         result = self.s.isSymmetric(root)
         self.assertEqual(result, True)
 
     def test_02(self):
         arr = [1,2,2,None,3,None,3]
-        root = bt.create_binary_tree(arr, 0)
+        root = bt.array_to_binary_tree(arr)
         bt.print_binary_tree(root)
         result = self.s.isSymmetric(root)
         self.assertEqual(result, False)
 
     def test_03(self):
         arr = [1,2,2,2,None,2]
-        root = bt.create_binary_tree(arr, 0)
+        root = bt.array_to_binary_tree(arr)
         bt.print_binary_tree(root)
         result = self.s.isSymmetric(root)
         self.assertEqual(result, False)

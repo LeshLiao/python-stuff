@@ -13,7 +13,6 @@ class TreeNode:
         self.left = left
         self.right = right
 
-
 class Solution:
     my_list = []
 
@@ -33,12 +32,23 @@ class Solution:
 class TestSolution(unittest.TestCase):
     s = Solution()
 
-    # @unittest.skip
     def test_01(self):
-        arr = [1,None,2,None,None,3]
-        root = bt.create_binary_tree(arr,0)
+        arr = [1,None,2,3]
+        root = bt.array_to_binary_tree(arr)
         bt.print_binary_tree(root)
         self.assertEqual(self.s.inorderTraversal(root), [1, 3, 2])
+
+    def test_02(self):
+        arr = []
+        root = bt.array_to_binary_tree(arr)
+        bt.print_binary_tree(root)
+        self.assertEqual(self.s.inorderTraversal(root), [])
+
+    def test_03(self):
+        arr = [1]
+        root = bt.array_to_binary_tree(arr)
+        bt.print_binary_tree(root)
+        self.assertEqual(self.s.inorderTraversal(root), [1])
 
 if __name__ == '__main__':
     unittest.main()

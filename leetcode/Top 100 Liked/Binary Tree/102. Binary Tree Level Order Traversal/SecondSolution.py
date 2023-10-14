@@ -46,21 +46,21 @@ class TestSolution(unittest.TestCase):
 
     def test_01(self):
         arr = [3,9,20,None,None,15,7]
-        root = bt.create_binary_tree(arr, 0)
+        root = bt.array_to_binary_tree(arr)
         bt.print_binary_tree(root)
         result = self.s.levelOrder(root)
         self.assertEqual(result, [[3],[9,20],[15,7]])
 
     def test_02(self):
         arr = [1]
-        root = bt.create_binary_tree(arr, 0)
+        root = bt.array_to_binary_tree(arr)
         bt.print_binary_tree(root)
         result = self.s.levelOrder(root)
         self.assertEqual(result, [[1]])
 
     def test_03(self):
         arr = []
-        root = bt.create_binary_tree(arr, 0)
+        root = bt.array_to_binary_tree(arr)
         bt.print_binary_tree(root)
         result = self.s.levelOrder(root)
         self.assertEqual(result, [])

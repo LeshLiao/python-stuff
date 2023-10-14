@@ -36,13 +36,13 @@ class TestSolution(unittest.TestCase):
     # @unittest.skip
     def test_01(self):
         arr = [3,9,20,None,None,15,7]
-        root = bt.create_binary_tree(arr,0)
+        root = bt.array_to_binary_tree(arr)
         bt.print_binary_tree(root)
         self.assertEqual(self.s.maxDepth(root), 3)
 
     def test_02(self):
         arr = [1,None,2]
-        root = bt.create_binary_tree(arr,0)
+        root = bt.array_to_binary_tree(arr)
         bt.print_binary_tree(root)
         self.assertEqual(self.s.maxDepth(root), 2)
 

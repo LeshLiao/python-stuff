@@ -5,16 +5,6 @@ class TreeNode:
         self.val = val
         self.left = None
         self.right = None
-    
-    
-def create_binary_tree(arr, index):
-
-    if index < len(arr):
-        root = TreeNode(arr[index])
-        root.left = create_binary_tree(arr, index * 2 + 1)
-        root.right = create_binary_tree(arr, index * 2 + 2)
-        return root
-    return None
 
 def print_binary_tree(root, prefix="", is_left=True):
     if not root:
@@ -58,7 +48,40 @@ def in_order(root,my_list):
         in_order(root.left,my_list)
         in_order(root.right,my_list)
 
-def bfsTraversalToArray(root):
+def array_to_binary_tree(arr):
+    if not arr:
+        return None
+
+    # Create a queue to hold the nodes as we build the tree
+    queue = []
+
+    # Create the root node from the first element of the array
+    root = TreeNode(arr[0])
+    queue.append(root)
+
+    i = 1  # Start with the second element in the array
+
+    while i < len(arr):
+        current_node = queue.pop(0)
+
+        # Create the left child node
+        if i < len(arr):
+            if arr[i] is not None:
+                current_node.left = TreeNode(arr[i])
+                queue.append(current_node.left)
+            i += 1
+
+        # Create the right child node
+        if i < len(arr):
+            if arr[i] is not None:
+                current_node.right = TreeNode(arr[i])
+                queue.append(current_node.right)
+            i += 1
+
+    return root
+
+
+def binary_tree_to_array(root):
     if not root:
         return []
 
@@ -66,22 +89,26 @@ def bfsTraversalToArray(root):
     queue = [root]
 
     while queue:
-        node = queue.pop(0)
-        result.append(node.val)
+        current_node = queue.pop(0)
 
-        if node.left:
-            queue.append(node.left)
-        if node.right:
-            queue.append(node.right)
+        if current_node:
+            result.append(current_node.val)
+            queue.append(current_node.left)
+            queue.append(current_node.right)
+        else:
+            result.append(None)
+
+    # Trim any trailing None values from the list
+    while result and result[-1] is None:
+        result.pop()
 
     return result
 
-
 if __name__ == '__main__':
     arr = [1,2,3,4,5,6,7]
-    root = create_binary_tree(arr,0)
+    root = array_to_binary_tree(arr)
     print("BFS Traversal of Binary Tree:")
     print_binary_tree(root)
 
-    print(bfsTraversalToArray(root))
+    print(binary_tree_to_array(root))
     # test(root)

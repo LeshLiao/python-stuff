@@ -32,18 +32,17 @@ class TestSolution(unittest.TestCase):
     def test_01(self):
         result = self.s.buildTree([3,9,20,15,7],[9,3,15,20,7])
         bt.print_binary_tree(result)
-        # self.assertEqual(bt.bfsTraversalToArray(result), [3,9,20,None,None,15,7])
-        self.assertEqual(bt.bfsTraversalToArray(result), [3,9,20,15,7])
+        self.assertEqual(bt.binary_tree_to_array(result), [3,9,20,None,None,15,7])
 
     def test_02(self):
         result = self.s.buildTree([-1],[-1])
         bt.print_binary_tree(result)
-        self.assertEqual(bt.bfsTraversalToArray(result), [-1])
+        self.assertEqual(bt.binary_tree_to_array(result), [-1])
 
     def test_03(self):
         result = self.s.buildTree([1,2],[2,1])
         bt.print_binary_tree(result)
-        self.assertEqual(bt.bfsTraversalToArray(result), [1,2])
+        self.assertEqual(bt.binary_tree_to_array(result), [1,2])
 
 if __name__ == '__main__':
     unittest.main()

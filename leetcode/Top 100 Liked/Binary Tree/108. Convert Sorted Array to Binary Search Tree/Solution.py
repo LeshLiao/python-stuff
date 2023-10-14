@@ -35,9 +35,10 @@ class TestSolution(unittest.TestCase):
         arr = [-10,-3,0,5,9]
         result = self.s.sortedArrayToBST(arr)
         root = bt.print_binary_tree(result)
-        new_arr = bt.bfsTraversalToArray(result)
-        # self.assertEqual(new_arr, [0,-10,5,None,-3,None,9])
-        self.assertEqual(new_arr, [0,-10,5,-3,9])
+        return_arr = bt.binary_tree_to_array(result)
+        print(return_arr)
+        self.assertEqual(return_arr, [0,-10,5,None,-3,None,9])
+
 
 '''
 Input: nums = [-10,-3,0,5,9]
