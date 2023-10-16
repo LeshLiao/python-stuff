@@ -13,22 +13,17 @@ class TreeNode:
         self.right = right
 
 class Solution:
-    def flatten(self, root: TreeNode) -> None:
+    def flatten(self, root: Optional[TreeNode]) -> None:
         curr = root
-
         while curr:
             if curr.left != None:
-                p = curr.left
-                while p.right != None:
-                    p = p.right
-
-                p.right = curr.right
-
+                prev = curr.left
+                while prev.right:
+                    prev = prev.right
+                prev.right = curr.right
                 curr.right = curr.left
                 curr.left = None
-
             curr = curr.right
-
 
 class TestSolution(unittest.TestCase):
 
@@ -43,6 +38,24 @@ class TestSolution(unittest.TestCase):
         result = bt.binary_tree_to_array(root)
         print(result)
         self.assertEqual(result, [1,None,2,None,3,None,4,None,5,None,6])
+
+    def test_02(self):
+        arr = []
+        root = bt.array_to_binary_tree(arr)
+        bt.print_binary_tree(root)
+        self.s.flatten(root)
+        result = bt.binary_tree_to_array(root)
+        print(result)
+        self.assertEqual(result, [])
+
+    def test_03(self):
+        arr = [0]
+        root = bt.array_to_binary_tree(arr)
+        bt.print_binary_tree(root)
+        self.s.flatten(root)
+        result = bt.binary_tree_to_array(root)
+        print(result)
+        self.assertEqual(result, [0])
 
 if __name__ == '__main__':
     unittest.main()
