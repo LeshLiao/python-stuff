@@ -3,17 +3,9 @@ import sys
 import unittest
 from typing import List
 
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-
         seen = {}
-
         for i, num in enumerate(nums):
             if target - num in seen:
                 return[seen[target - num], i]
