@@ -41,7 +41,7 @@ class TestSolution(unittest.TestCase):
         self.assertEqual(nums, excepted)
 
     def test_ex2(self):
-        nums = nums = [3,2,1]
+        nums = [3,2,1]
         excepted = [1,2,3]
         self.s.nextPermutation(nums)
         self.assertEqual(nums, excepted)

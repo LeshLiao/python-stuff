@@ -16,9 +16,9 @@ class Solution:
                 for k in range(i, len(nums)):
                     if nums[j] < nums[k]:
                         nums[k], nums[j] = nums[j], nums[k]
-                        return nums
-
-        return nums.reverse()
+                        return
+        nums.reverse()
+        return
 
 class TestSolution(unittest.TestCase):
     def setUp(self):
@@ -31,7 +31,7 @@ class TestSolution(unittest.TestCase):
         self.assertEqual(nums, excepted)
 
     def test_ex2(self):
-        nums = nums = [3,2,1]
+        nums = [3,2,1]
         excepted = [1,2,3]
         self.s.nextPermutation(nums)
         self.assertEqual(nums, excepted)
