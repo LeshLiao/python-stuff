@@ -4,12 +4,10 @@ capitals = {'USA': 'Washington DC',
             'India': 'New Delhi',
             'Taiwan': 'Taipei'}
 
-
 def show_all_capitals():
     print('=== capitals ===')
     for key, value in capitals.items():
         print('my key='+key+',my value='+value)
-
 
 def get_capital(search_key):
     val = capitals.get(search_key)
@@ -18,9 +16,7 @@ def get_capital(search_key):
     else:
         print('unknown key:'+search_key)
 
-
 get_capital('filipino')
-
 print(capitals.keys())
 print(capitals.values())
 print(capitals.items())
