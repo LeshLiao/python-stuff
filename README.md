@@ -23,4 +23,8 @@
 
 ### check connection
 - ssh -T git@github.com
-- ssh-add ~/.ssh/rpi-key
+
+### enable ssh agent
+cd /python-stuff
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/rpi-key
