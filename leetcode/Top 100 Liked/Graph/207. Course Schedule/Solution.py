@@ -8,7 +8,10 @@ class Solution:
 
         graph = defaultdict(list)
         for course, pre in prerequisites:
-          graph[course].append(pre)
+          #graph[course].append(pre)
+          graph[pre].append(course)
+          # 0 -> 1
+          # node(pre) -> neighbor(course)
 
         # print(graph)
 
@@ -38,10 +41,35 @@ class Solution:
         return True
 
 test_cases = [
-  (2, [[1,0]], True),
-  (2, [[0,1],[1,0]], False),
-  (5, [[0,1],[0,2],[1,3],[1,4],[3,4]], True)
+    # 1. No prerequisites
+    (3, [], True),
+    # Explanation: All courses can be taken in any order.
+
+    # 2. Linear dependency (chain)
+    (4, [[1, 0], [2, 1], [3, 2]], True),
+    # Explanation: One valid order is [0,1,2,3]
+
+    # 3. Simple cycle
+    (3, [[0, 1], [1, 2], [2, 0]], False),
+    # Explanation: Cycle exists → cannot complete all courses
+
+    # 4. Multiple components, one with a cycle
+    (5, [[1, 0], [2, 3], [3, 2]], False),
+    # Explanation: Component [2,3] has a cycle
+
+    # 5. Multiple components, no cycles
+    (5, [[1, 0], [2, 3]], True),
+    # Explanation: All components are acyclic
+
+    # 6. Self-dependency
+    (2, [[0, 0]], False),
+    # Explanation: Course 0 requires itself → invalid
+
+    # 7. Large chain (no cycles)
+    (6, [[1, 0], [2, 1], [3, 2], [4, 3], [5, 4]], True),
+    # Explanation: Long but valid dependency chain
 ]
+
 
 for i, (p1, p2, expected) in enumerate(test_cases, 1):
     sol = Solution()
