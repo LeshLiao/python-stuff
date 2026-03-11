@@ -5,7 +5,7 @@ class Solution:
     '''
         refer to : https://www.youtube.com/watch?v=EFzYA9H0MfQ
     '''
-    def subarraySum(self, nums: List[int], k: int) -> int:
+    def sub_array_sum(self, nums: List[int], k: int) -> int:
 
         temp = {}
         count = 0
@@ -31,16 +31,23 @@ class TestSolution(unittest.TestCase):
         self.s = Solution()
 
     def test_ex_1(self):
+
+        # Arrange
         nums = [1,1,1]
         k = 2
         expected = 2
-        self.assertEqual(self.s.subarraySum(nums, k), expected)
+
+        # Act
+        result = self.s.sub_array_sum(nums, k)
+
+        # Assert
+        self.assertEqual(result, expected)
 
     def test_ex_2(self):
         nums = [1,2,3]
         k = 3
         expected = 2
-        self.assertEqual(self.s.subarraySum(nums, k), expected)
+        self.assertEqual(self.s.sub_array_sum(nums, k), expected)
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)

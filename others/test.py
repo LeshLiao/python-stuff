@@ -199,3 +199,46 @@ def my_dfs(index):
 
 
 my_dfs(0)
+
+
+print('\n')
+
+'''
+Input: nums = [1,1,1,2,2,3], k = 2
+Output: [1,2]
+'''
+
+
+nums = [1,1,1,2,2,3]
+k = 2
+count = {}
+
+for i in range(len(nums)):
+    count[nums[i]] = count.get(nums[i], 0) + 1
+
+# feq = {}
+
+feq = [[] for _ in range(len(nums) + 1)]
+
+for item in count.items():
+    number = item[0]
+    count_num = item[1]
+    feq[count_num].append(number)
+
+result = []
+n = 0
+for j in range(len(nums), 0, -1):
+    if feq[j] != None:
+        result.append(feq[j])
+        n = n + 1
+        if n == k:
+            break
+
+print(result)
+
+
+feq1 = [[] for _ in range(10)]
+print(feq1)
+#print(count[1])
+#print(count[2])
+#print(count[3])
