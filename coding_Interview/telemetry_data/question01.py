@@ -1,4 +1,3 @@
-
 from collections import defaultdict
 
 count = defaultdict(int)
@@ -14,7 +13,6 @@ count = defaultdict(int)
     Set	{1, 2, 3}
     Dictionary	{"a":1, "b":2}
 '''
-
 
 '''
 [
@@ -50,30 +48,3 @@ expected = {
 result = count_error_devices(all_devices)
 
 print(expected == result)
-
-
-
-transactions = [
-  ("store1", 100),
-  ("store2", 200),
-  ("store1", 50),
-  ("store3", 300)
-]
-
-
-def count_stores_amount():
-  amount = defaultdict(int)
-  for key, value in transactions:
-    amount[key] += value
-
-  return dict(amount)
-
-result2 = count_stores_amount()
-
-expected2 = {
-  'store1': 150,
-  'store2':200,
-  'store3':300
-}
-
-print(expected2 == result2)
